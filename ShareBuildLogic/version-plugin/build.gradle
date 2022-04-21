@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library' // 编译 java
+    id 'groovy' // 编译 groovy
+    id 'org.jetbrains.kotlin.jvm' // 编译 kotlin
+    id 'java-gradle-plugin' // gradle 插件
+    id 'maven-publish' // 发布插件
+}
+version "1.0.0" // 配置版本
+group "com.pingfangx.version" // 配置组
+java { // Java 版本兼容性
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+gradlePlugin {
+    plugins {
+        // 两个插件对应两个 PluginDeclaration
+        "com.pingfangx.version.kotlin" {
+            id = "com.pingfangx.version.kotlin" // 为了简便，名字和 id 可以对应
+            implementationClass = "com.pingfangx.demo.version.DemoVersionKotlinPlugin"
+        }
+        "com.pingfangx.version.groovy" {
+            id = "com.pingfangx.version.groovy"
+            implementationClass = "com.pingfangx.demo.version.DemoVersionGroovyPlugin"
+        }
+    }
+}
+publishing {
+    publications {
+        // java-gradle-plugin 会配置名为 pluginMaven 的 Publication，可以修改 artifactId
+        pluginMaven(MavenPublication) {
+            // 演示如何修改 artifactId
+            artifactId "version-plugin"
+        }
+    }
+}
