@@ -11,6 +11,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+    versionCatalogs {
+        libs {
+            library("junit","junit:junit:4.13.2")
+        }
+    }
 }
 rootProject.name = "ShareBuildLogic"
 include ':app'
